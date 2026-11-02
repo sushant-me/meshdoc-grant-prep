@@ -1,56 +1,63 @@
-# NLnet proposal, ready to paste
+# NLnet proposal, in form order
 
-Every field is under its character limit and contains no em dash, en dash or
-horizontal bar. Copy each block into https://nlnet.nl/propose/ exactly as it is.
+Generated from draft.py. Every field is under the form's own maxlength and contains
+no em dash, en dash or horizontal bar. Open `fill.html` in a browser for one click
+copy per field, or copy from here.
 
-**Read this before you submit.** The AI disclosure below is written to be true
-whether you paste this text as it stands or rewrite it in your own words. If you
-do rewrite the whole thing yourself, you may simplify it to say that AI was used
-for research only. Do not claim the text is entirely your own writing while it is
-not: NLnet's policy is explicit about this and being caught out is worse than
-disclosing.
-
-Still needed from you, and only you can supply it: name, email, phone, country,
-applicant type (SME company for Arvion, or Individual), and the fund choice below.
-
-| Field | Characters | Limit |
-|---|---|---|
-| Proposal title | 70 | none |
-| Project website(s) / repositories | 37 | none |
-| Project summary | 965 | 1000 |
-| Proposed effort | 2604 | 4000 |
-| Comparison with other efforts | 2299 | 4000 |
-| Technical challenges | 2941 | 4000 |
-| Ecosystem | 1295 | 2000 |
-| Background | 1324 | 2000 |
-| Other funding | 379 | 1000 |
-| AI disclosure | 931 | 8000 |
+| # | Form field | Limit | Characters |
+|---|---|---|---|
+| 1 | Fund (`call`) | none | 0 |
+| 2 | Proposal title (`project`) | 100 | 70 |
+| 3 | Project website / repository (`website`) | 100 | 37 |
+| 4 | Project summary (`abstract`) | 1000 | 965 |
+| 5 | Amount requested (euros) (`amount`) | none | 5 |
+| 6 | Proposed effort (`use`) | 4000 | 2604 |
+| 7 | Comparison with other efforts (`comparison`) | 4000 | 2299 |
+| 8 | Technical challenges (`challenges`) | 4000 | 2941 |
+| 9 | Ecosystem (`ecosystem`) | 2000 | 1295 |
+| 10 | Background (`experience`) | 2000 | 1324 |
+| 11 | Other funding (`otherfunding`) | 1000 | 379 |
+| 12 | AI disclosure: did you use AI in writing? (`used_ai`) | none | 0 |
+| 13 | AI disclosure: prompts and detail (`ai_prompt`) | 8000 | 931 |
+| 14 | AI disclosure: does the codebase contain AI-generated code? (`codebase_used_ai`) | none | 0 |
+| 15 | AI disclosure: describe the AI use in the codebase (`codebase_ai_clarification`) | 1000 | 590 |
+| 16 | Type of applicant (`entity`) | none | 0 |
 
 ---
 
-## Fund
+## 1. Fund
 
-`Restack Fund`
+Goes into the form field `call`.
 
-## Proposal title
+```text
+Restack_Fund
+```
+
+That is the option: Restack Fund.
+
+## 2. Proposal title
+
+Goes into the form field `project`.
 
 ```text
 MeshDoc: encrypted documents that sync phone to phone without a server
 ```
 
-**70 characters** (limit none)
+70 characters of 100.
 
-## Project website(s) / repositories
+## 3. Project website / repository
+
+Goes into the form field `website`.
 
 ```text
 https://github.com/sushant-me/meshdoc
 ```
 
-**37 characters** (limit none)
+37 characters of 100.
 
-## Project summary
+## 4. Project summary
 
-_Summary of the proposed project and its expected results, in a few lines._
+Goes into the form field `abstract`.
 
 ```text
 MeshDoc is a reusable library stack for teams that cannot rely on the internet. An Android phone holds structured documents (checklists, supply forms, location notes) that are encrypted end to end and sync directly with other phones over Bluetooth and Wi-Fi Direct, then opportunistically through a relay anyone can host.
@@ -62,11 +69,21 @@ We will deliver four Rust crates (core, crypto, sync, transport), a small relay,
 A working prototype already shows the loop: two Android devices editing the same encrypted checklist while apart, converging on reconnect.
 ```
 
-**965 characters** (limit 1000)
+965 characters of 1000.
 
-## Proposed effort
+## 5. Amount requested (euros)
 
-_Budget breakdown: tasks, time, rate, expenses._
+Goes into the form field `amount`.
+
+```text
+29920
+```
+
+5 characters.
+
+## 6. Proposed effort
+
+Goes into the form field `use`.
 
 ```text
 Requested amount: 29,920 euro. That is 176 person-days at 170 euro per day and no other costs.
@@ -98,11 +115,11 @@ Two people at roughly a third of full time each across twelve months. The first 
 Payment is tied to five milestones: foundations at month 2, core plus first transport at month 5, the full transport matrix at month 7, product and pilot evidence at month 10, release and handover at month 12. The accessibility and security audits sit as zero cost gates at months 9 and 11.
 ```
 
-**2604 characters** (limit 4000)
+2604 characters of 4000.
 
-## Comparison with other efforts
+## 7. Comparison with other efforts
 
-_What is new, more thorough or otherwise different. Have you considered contributing to any of the others?_
+Goes into the form field `comparison`.
 
 ```text
 MeshDoc is not the first mesh messenger, not the first CRDT library and not the first humanitarian data tool. The claim is the intersection: encrypted structured documents that converge over an intermittent, serverless mesh, released as a permissive library that others can build on.
@@ -120,11 +137,11 @@ Standards. We build toward MLS (RFC 9420) for group keys and take concepts from 
 What we will give back: a transport crate usable by other local first projects, a partition and merge fuzzing harness, written guidance on CRDT schema migration, and an interoperability profile for the relay. We would rather depend on the CRDT project we choose than fork it, and the transport work goes upstream as a crate rather than a patch.
 ```
 
-**2299 characters** (limit 4000)
+2299 characters of 4000.
 
-## Technical challenges
+## 8. Technical challenges
 
-_What technical challenges do you expect during the project?_
+Goes into the form field `challenges`.
 
 ```text
 1. Android background limits against the energy target. Doze, App Standby buckets and foreground service rules may forbid the behaviour the design needs. We will measure on named devices over eight hour windows with two independent instruments, an external power monitor and the on device charge counter, and report both. If the target cannot be met, we say so with numbers.
@@ -152,11 +169,11 @@ _What technical challenges do you expect during the project?_
 12. Reproducible builds and F-Droid. A Rust, NDK and SQLite combination is notoriously hard to build bit for bit. We start that work in month one, not at release.
 ```
 
-**2941 characters** (limit 4000)
+2941 characters of 4000.
 
-## Ecosystem
+## 9. Ecosystem
 
-_The ecosystem around the project and how you will engage relevant actors. Who are the main users?_
+Goes into the form field `ecosystem`.
 
 ```text
 Users. Field teams in disaster response, community health workers and NGOs who currently keep structured records on paper or in a server backed tool that stops working when the network does. The second audience is builders: other local first and humanitarian projects that need the piece we are making and would rather embed a crate than write it.
@@ -168,11 +185,11 @@ Who depends on us, once it exists: any project that needs encrypted peer to peer
 Engagement. One upstream contribution merged per quarter with the CRDT project we build on. Issues and patches to the Android transport work rather than a private fork. Presentation at a local first or free software event each year. The field pilot documented publicly. And we will take up NLnet's own support services: the security audit and the accessibility scan, both of which we have budgeted as zero cost gates.
 ```
 
-**1295 characters** (limit 2000)
+1295 characters of 2000.
 
-## Background
+## 10. Background
 
-_What makes you the right person(s) for this effort? Relevant experience and contributions._
+Goes into the form field `experience`.
 
 ```text
 I am Sushant, a software engineer in Kathmandu, Nepal, and I run Arvion Technologies, a small product studio.
@@ -186,21 +203,31 @@ The prototype behind this application already exists: an encrypted CRDT core in 
 What I am not is a large team. Two of us will do this work, which is why the plan is deliberately conservative and the first months are funded by the studio.
 ```
 
-**1324 characters** (limit 2000)
+1324 characters of 2000.
 
-## Other funding
+## 11. Other funding
 
-_Does (or did) the project have other funding sources?_
+Goes into the form field `otherfunding`.
 
 ```text
 No other funding. The project has none, and no part of it has been funded before this application. The prototype was built with studio time. Arvion Technologies is a commercial studio that takes client work, and this grant would fund people to work on the commons part of the problem rather than on client projects. There are no patents on any of it and no intention to file any.
 ```
 
-**379 characters** (limit 1000)
+379 characters of 1000.
 
-## AI disclosure
+## 12. AI disclosure: did you use AI in writing?
 
-_Did you use generative AI in writing this proposal?_
+Goes into the form field `used_ai`.
+
+```text
+I have used generative AI in writing this proposal
+```
+
+That is the option: Yes, I have used generative AI in writing this proposal.
+
+## 13. AI disclosure: prompts and detail
+
+Goes into the form field `ai_prompt`.
 
 ```text
 AI assistance was used while preparing this application. It was used to read and summarise NLnet's published material (the Restack call, the guide for applicants, the eligibility rules and the generative AI policy), to check the current state and the licences of comparable projects, to sanity check the budget arithmetic, and to help draft and structure the text of this form.
@@ -212,12 +239,56 @@ The prototype in the linked repository was written with AI assistance in a codin
 I would rather over disclose than have it discovered later.
 ```
 
-**931 characters** (limit 8000)
+931 characters of 8000.
 
----
+## 14. AI disclosure: does the codebase contain AI-generated code?
 
-## Attachments
+Goes into the form field `codebase_used_ai`.
 
-Optional. The strongest one is a short letter of support from a real pilot
-organisation. If you have none, submit without attachments; the form says they
-are not needed.
+```text
+yes
+```
+
+That is the option: Yes, the codebase contains AI-generated code.
+
+## 15. AI disclosure: describe the AI use in the codebase
+
+Goes into the form field `codebase_ai_clarification`.
+
+```text
+Part of the existing prototype was written with AI assistance, used as a coding and review tool during an exploratory phase before this application. It covers the Rust core, the relay and parts of the Android client. That code is public and MIT licensed, and it is not the work this grant would pay for.
+
+The funded work described here will be written by me and my colleague. We will also publish a short contributor policy saying that generative AI may be used to review code but not to produce it, which follows the current NLnet policy and is the rule we want our contributors to follow.
+```
+
+590 characters of 1000.
+
+## Your name
+
+Field `requestor`: You must fill this in.
+
+## Email address
+
+Field `email`: You must fill this in.
+
+## Phone number
+
+Field `phone`: Include the country code.
+
+## 16. Type of applicant
+
+Goes into the form field `entity`.
+
+```text
+SME
+```
+
+That is the option: SME company (small/medium enterprise).
+
+## Name of organisation
+
+Field `organization`: Arvion Technologies, if you apply as the company.
+
+## Country
+
+Field `country`: Nepal.
