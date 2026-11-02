@@ -9,13 +9,13 @@ copy per field, or copy from here.
 | 1 | Fund (`call`) | none | 0 |
 | 2 | Proposal title (`project`) | 100 | 70 |
 | 3 | Project website / repository (`website`) | 100 | 37 |
-| 4 | Project summary (`abstract`) | 1000 | 965 |
+| 4 | Project summary (`abstract`) | 1000 | 989 |
 | 5 | Amount requested (euros) (`amount`) | none | 5 |
 | 6 | Proposed effort (`use`) | 4000 | 2604 |
 | 7 | Comparison with other efforts (`comparison`) | 4000 | 2299 |
 | 8 | Technical challenges (`challenges`) | 4000 | 2941 |
-| 9 | Ecosystem (`ecosystem`) | 2000 | 1295 |
-| 10 | Background (`experience`) | 2000 | 1324 |
+| 9 | Ecosystem (`ecosystem`) | 2000 | 1355 |
+| 10 | Background (`experience`) | 2000 | 1164 |
 | 11 | Other funding (`otherfunding`) | 1000 | 379 |
 | 12 | AI disclosure: did you use AI in writing? (`used_ai`) | none | 0 |
 | 13 | AI disclosure: prompts and detail (`ai_prompt`) | 8000 | 931 |
@@ -62,14 +62,14 @@ Goes into the form field `abstract`.
 ```text
 MeshDoc is a reusable library stack for teams that cannot rely on the internet. An Android phone holds structured documents (checklists, supply forms, location notes) that are encrypted end to end and sync directly with other phones over Bluetooth and Wi-Fi Direct, then opportunistically through a relay anyone can host.
 
-The gap is specific. The open stack has good tools for messages and good tools for documents, but document tools assume a server and message tools do not carry structured records. Nothing in between exists as a reusable layer, so every humanitarian project rebuilds it badly.
+The gap is specific. The open stack has good tools for messages and good tools for documents, but document tools assume a server and message tools do not carry structured records. Nothing in between exists as a reusable layer, so every humanitarian project rebuilds it badly and separately.
 
-We will deliver four Rust crates (core, crypto, sync, transport), a small relay, and a reference Android app, all under MIT. Identity is a keypair made on the device: no accounts, no phone numbers, no server approving anyone.
+We will deliver four Rust crates (core, crypto, sync, transport), a small relay and a reference Android app, all under MIT, so any NGO can run the result without asking us.
 
-A working prototype already shows the loop: two Android devices editing the same encrypted checklist while apart, converging on reconnect.
+A working prototype already exists: encrypted documents converging between two Android devices, 133 tests, and an Android client that installs and runs. Built in Kathmandu, where this failure is real.
 ```
 
-965 characters of 1000.
+989 characters of 1000.
 
 ## 5. Amount requested (euros)
 
@@ -176,16 +176,16 @@ Goes into the form field `challenges`.
 Goes into the form field `ecosystem`.
 
 ```text
-Users. Field teams in disaster response, community health workers and NGOs who currently keep structured records on paper or in a server backed tool that stops working when the network does. The second audience is builders: other local first and humanitarian projects that need the piece we are making and would rather embed a crate than write it.
+Users. Field teams in disaster response, community health workers and NGOs who keep structured records on paper, or in a server backed tool that stops working when the network does. In Nepal that means organisations such as the Nepal Red Cross Society, the National Society for Earthquake Technology and district health offices, which we intend to approach for the pilot. The second audience is builders: other local first and humanitarian projects that would rather embed a crate than write one.
 
-Dependencies. We depend on one CRDT implementation, on libsodium style authenticated encryption through established Rust crates, and on Android platform APIs. We do not depend on any vendor service. The relay depends on nothing but a Rust toolchain and a disk.
+Dependencies. We depend on one CRDT implementation, on established Rust cryptography crates and on Android platform APIs. We depend on no vendor service. The relay needs only a Rust toolchain and a disk.
 
-Who depends on us, once it exists: any project that needs encrypted peer to peer documents, and the relay operators, who need only a binary. We intend to make the transport crate and the fuzzing harness general enough for other local first projects to use directly.
+Who depends on us. Any project that needs encrypted peer to peer documents, and the people who run relays, who need only a binary. The transport crate and the fuzzing harness are written to be general enough for other local first projects to use directly.
 
-Engagement. One upstream contribution merged per quarter with the CRDT project we build on. Issues and patches to the Android transport work rather than a private fork. Presentation at a local first or free software event each year. The field pilot documented publicly. And we will take up NLnet's own support services: the security audit and the accessibility scan, both of which we have budgeted as zero cost gates.
+Engagement. One upstream contribution merged per quarter with the CRDT project we build on. Patches sent to the Android transport work rather than a private fork. A talk at a local first or free software event each year. A publicly documented field pilot. And we will take up NLnet's own support services, the security audit and the accessibility scan, which we have budgeted as zero cost gates.
 ```
 
-1295 characters of 2000.
+1355 characters of 2000.
 
 ## 10. Background
 
@@ -194,16 +194,14 @@ Goes into the form field `experience`.
 ```text
 I am Sushant, a software engineer in Kathmandu, Nepal, and I run Arvion Technologies, a small product studio.
 
-What I have shipped that is relevant. I have built offline first sync before: an operation log with vector clocks and last writer wins conflict handling, written to work without a server. I have shipped production Android and Flutter applications and maintain a set of open Rust and TypeScript libraries. I work in Rust for the parts where correctness matters more than speed, and in Kotlin and Dart for the parts a person touches.
+Relevant shipping history. I have built offline first sync before: an operation log with vector clocks and last writer wins conflict handling, designed to work with no server at all. I maintain several open Rust and TypeScript libraries, and I have shipped production Android and Flutter applications. I write Rust where correctness matters more than speed, and Kotlin or Dart where a person has to touch the result.
 
-This is not a hypothetical problem for me. Nepal has had two major earthquakes in a decade, and mobile data in the districts outside the valley is unreliable at the best of times. I have watched teams coordinate on paper because the software needed something the place did not have.
+The prototype behind this application already runs. It has an encrypted CRDT core in Rust with 133 passing tests, a store and forward relay, BLE discovery with a rotating unlinkable identifier, Wi-Fi Direct group formation with a deterministic owner election, and an Android client that installs, launches, generates its own identity and syncs. I built it to find out whether the hard parts are as hard as they look, and to be able to say something true in this form rather than something hopeful.
 
-The prototype behind this application already exists: an encrypted CRDT core in Rust with 133 tests, a relay, and an Android client that runs on a real Android build and generates its own identity. I wrote it to find out whether the hard parts are as hard as they look, and to be able to say something true rather than something hopeful.
-
-What I am not is a large team. Two of us will do this work, which is why the plan is deliberately conservative and the first months are funded by the studio.
+I am not a large team. Two of us will do this work, which is why the plan is conservative and the first months are funded by the studio.
 ```
 
-1324 characters of 2000.
+1164 characters of 2000.
 
 ## 11. Other funding
 
