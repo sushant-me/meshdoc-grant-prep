@@ -673,7 +673,7 @@ Likelihood (L/M/H) × impact (1–5). Triggers are checked at the milestone gate
 | R9 | F-Droid/reproducibility fails or binary blobs excluded | M | 4 | source-built C deps; CI from M1; early F-Droid MR | not byte-identical by M10 → documented variance, never fake |
 | R10 | Keystore invalidation/data loss on some OEMs | M | 5 | non-auth-bound wrap; matrix tests; recovery export; warnings | data loss without warning → release blocker |
 | R11 | Scope creep (iOS, desktop, chat, translation, custom crypto) | M | 3 | explicit non-goals; trait seams; review checklist | any new platform request → defer to post-grant |
-| R12 | Team capacity: 10.25 PM over 12 months is tight for one founder | M | 5 | WP ordering; de-scope ladder; contractor for device matrix automation | slippage > 1 month at M6 → drop WP6 polish and field trial |
+| R12 | Team capacity: 176 person-days (~0.68 FTE) over 12 months is tight if one person carries it | M | 5 | WP ordering; de-scope ladder; contractor for device-matrix automation | slippage > 1 month at M6 → drop WP6 polish and field trial |
 | R13 | External audit finds a critical design flaw | L | 5 | threat model early; audit at M10; crypto kept to standard primitives | critical finding → delay release, fix, re-audit (budget contingency) |
 | R14 | Device matrix cost (8–10 used phones) exceeds budget | M | 2 | buy used; borrow from pilot partner; emulators for API-level coverage only | over budget → 5 devices, note coverage limitation |
 | R15 | Dependency abandonment (Yrs, UniFFI, SQLCipher) | L | 4 | vendored, pinned, bridge isolates CRDT; `cargo deny`; upstream engagement | deprecation → planned migration path per component |
@@ -698,21 +698,24 @@ How this protects the grant: the proposed deliverables are (i) a reusable Rust l
 
 ## 6. Milestone plan (12 months)
 
-### 6.1 Work packages and effort
+> **Single source of truth for money, milestones and tranches:** `BUDGET_AND_MILESTONES.md`. That document holds the 9 work packages (176 person-days), the €170/person-day derivation, the milestone gates and the tranches. This section gives the *engineering* content of the same plan. If the two ever disagree on a number, the budget document wins — do not ship two different plans to a reviewer.
 
-| WP | Work | Effort (PM) | Months |
+### 6.1 Work packages and effort (engineering view, aligned with the budget document)
+
+| WP | Work | Days | Technical detail |
 |---|---|---|---|
-| WP1 | Protocol & core: types, envelope, workspace lifecycle, membership log, sync state machine, actor/FFI | 2.00 | 1–5 |
-| WP2 | Crypto, identity, epochs, rotation, Keystore wrapping, QR tickets | 1.25 | 2–8 |
-| WP3 | CRDT bridge: candidate bake-off, four typed projections, schema registry, migration, compaction design | 1.00 | 1–7 |
-| WP4 | Sync engine: VV + Merkle range reconciliation, chunk/ACK/resume, gossip policy, relay client, fairness | 1.50 | 1–6 |
-| WP5 | FOSS transports: BLE discovery/session, Wi-Fi Direct, Android radio + FGS/permissions, OEM matrix | 1.75 | 3–8 |
-| WP6 | Reference app: Compose UI, join flow, sync status, accessibility, onboarding | 0.75 | 4–8 |
-| WP7 | Verification: simulator, schedule fuzzer, differential oracle, energy rig, acceptance harness | 1.25 | 1–12 |
-| WP8 | Relay server, reproducibility/F-Droid, docs/RFCs, release, upstream publication | 0.75 | 3–12 |
-| | **Total** | **10.25 PM** | |
+| WP1 | Project setup, architecture & threat model | 9 | §2 (ADRs), §5 (risk register) |
+| WP2 | Protocol & core + crypto + CRDT bridge: types, envelope, workspace lifecycle, membership log, sync state machine; identity, epochs, rotation, Keystore wrapping, QR tickets; four typed projections, schema registry, migration, compaction design | 34 | §2.1–2.4, §2.7–2.8 |
+| WP3 | Transport abstraction + Nearby Connections fast path, conformance suite | 20 | §2.5 |
+| WP4 | FOSS BLE discovery (rotating identifiers) + Wi-Fi Direct bulk transfer; Android radio + FGS/permissions; OEM matrix | 26 | §2.5, §3(b)(c) |
+| WP5 | Relay server + DTN store-and-forward semantics, mailbox rotation | 14 | §2.6, §3(e) |
+| WP6 | Android reference app: Compose UI, QR join, sync status, accessibility, onboarding | 26 | §1.5, §3(i) |
+| WP7 | Convergence & partition fuzz harness: simulator, schedule fuzzer, differential oracle, energy rig, acceptance harness | 18 | §3(l), §4 |
+| WP8 | Field pilot, user research & documentation | 17 | §5, §6.2 |
+| WP9 | Community, upstream & F-Droid release, reproducibility | 12 | §3(j), §4 (AC-15) |
+| | **Total** | **176** | ≈ 8.1 person-months at 21.667 days/month |
 
-Ten person-months over 12 calendar months ≈ 0.85 FTE (founder at ~0.75–0.8 FTE plus a small contractor for device-matrix automation and F-Droid recipe). If the envelope is smaller, §6.4 says what to cut; if larger, add the external audit and a 50-device field trial.
+Roughly two people at ~0.34 FTE each across a 12-month calendar (0.68 FTE combined), with a deliberately light first two months because payment is in arrears. If the envelope is smaller, §6.4 says what to cut. **Do not add paid audits or test hardware if the envelope is larger — neither is eligible** (see `BUDGET_AND_MILESTONES.md` §7); add field-trial depth instead.
 
 ### 6.2 Milestones, each independently demonstrable
 
@@ -727,11 +730,13 @@ Ten person-months over 12 calendar months ≈ 0.85 FTE (founder at ~0.75–0.8 F
 | M7 | 7 | Compaction/GC + schema versioning + mixed-version fuzz | 90-day synthetic history compacted; late joiner from snapshot converges; v1/v2 mixed runs 0 divergence | AC-11/AC-16 pass |
 | M8 | 8 | Key rotation, removal, epoch DAG, merge epoch | 5-node partition test with concurrent rotations; removed member decryption test fails; post-removal writes rejected | AC-17 pass |
 | M9 | 9 | Energy rig + Doze/OEM matrix + onboarding flow | 8 h measurement report on 8 devices (Monsoon + BatteryStats); Doze 12 h; onboarding completion | AC-06 decision: 15 mW or F3 |
-| M10 | 10 | 10⁵-schedule fuzz + reproducibility + external security audit | nightly fuzz green for 30 days; two-clean-build `diffoscope` = 0; audit report with findings triaged; SBOM | AC-01/AC-12/AC-15 pass; audit blockers fixed |
-| M11 | 11 | Beta field trial (25–50 devices, 1–2 partner organisations, 4 weeks) | field report: crash-free %, ANR, energy in real use, support cases, top failures | AC-09/AC-18 pass |
-| M12 | 12 | Release 0.9/1.0, docs, fuzz kit and transport crate published, F-Droid listing, maintenance plan | tagged release, F-Droid build, RFCs (wire format, relay profile, schema rules), NLnet/HAN accessibility scan report | all ship gates met or explicitly waived with fallback recorded |
+| M10 | 10 | 10⁵-schedule fuzz green for 30 days + reproducible build + **field pilot report published** | nightly fuzz clean; two-clean-build `diffoscope` = 0; pilot report with crash-free %, ANR, energy in real use | AC-01/AC-12/AC-15 pass; gate 4 |
+| M11 | 11 | **Security gate** (free Radically Open Security review, issues triaged) + beta trial close-out (25–50 devices, 1–2 partner organisations) | audit report with findings resolved or waived; field report on real-device behaviour | gate ★; AC-09/AC-18 pass |
+| M12 | 12 | Release 0.9/1.0, docs, fuzz kit and transport crate published, F-Droid listing, maintenance plan | tagged release, F-Droid build, RFCs (wire format, relay profile, schema rules), NLnet/HAN accessibility scan report | gate 5; all ship gates met or explicitly waived with fallback recorded |
 
 Monthly cadence: a demo every four weeks and a written status note (green/amber/red against the gate). Amber for two consecutive months triggers the de-scope ladder, not silent slippage.
+
+**Reconciliation with the budget:** the binding gate structure is `BUDGET_AND_MILESTONES.md` §8 — five paid gates at M2, M5, M7, M10 and M12, plus two €0 gates (accessibility at M9, security at M11). The month-by-month table above is the engineering view of the same twelve months; if a month label here ever disagrees with §8, §8 wins.
 
 ### 6.3 Payment tranches (NLnet pays per milestone, in arrears; 4–5 milestones as the guidance prefers)
 
@@ -743,15 +748,15 @@ Monthly cadence: a demo every four weeks and a written status note (green/amber/
 | T4 | M9–M10: energy, scale fuzz, reproducibility, audit | 20 % | AC-01/06/12/15; audit triage |
 | T5 | M11–M12: field trial, release, docs/upstream | 10 % | AC-09/18/19; public artefacts |
 
-Shares, not euros: absolute figures and rates belong in `BUDGET_AND_MILESTONES.md`. At a Nepal cost-recovery rate well below the €65/h ceiling, 10.25 PM personnel plus a small device/measurement pool and a focused external audit lands in the €22k–€28k range, consistent with the compliance brief's €20k–€30k target; the exact arithmetic must be re-derived in the budget document.
+Shares, not euros: absolute figures, the rate derivation and the scenario tables belong in `BUDGET_AND_MILESTONES.md`, which is authoritative. The Recommended plan there is **176 person-days at €170/day = €29,920, zero expenses**. Note two eligibility corrections that override any instinct to add lines here: **test hardware is not eligible** (NLnet's own answer: buying test machines "is not seen as an efficient use of project budget") and the **security and accessibility audits are free support services**, not budget items. So the whole ask is labour.
 
 ### 6.4 De-scope ladder (cost effectiveness, stated up front)
 
 | Envelope | Plan | What is cut | Still demonstrable |
 |---|---|---|---|
-| ~€30k | 12 months, 10.25 PM, external audit, 50-device field trial | nothing | all ACs |
-| ~€25k | 12 months, 9.5 PM, peer review instead of paid audit, 25-device trial | external audit; reduced WP6 polish | all ship gates; audit replaced by public review |
-| ~€20k | 10 months, 8 PM, no field trial, no Wi-Fi Direct bulk | F2 transport (BLE + relay), lab beta only | library + app + relay + fuzz kit; "works on measured matrix" |
+| ~€30k (**recommended**) | 12 months, 176 days, free audits, 4-week beta field trial | nothing | all acceptance criteria |
+| ~€25k | 12 months, ~148 days, peer review instead of the free audit's follow-up, 25-device trial | reduced WP6 polish; narrower pilot | all ship gates |
+| ~€20k | 10 months, ~118 days, no external pilot, no Wi-Fi Direct bulk | F2 transport (BLE + relay), lab beta only | library + app + relay + fuzz kit; "works on the measured matrix" |
 | below ~€20k | recommend not applying this cycle; the scope no longer supports the 40 % impact case | — | — |
 
 The point of publishing this ladder: it shows the reviewer that the budget is a choice about scope, not an unexplained number, and that the minimum viable version still delivers a reusable library, an app and a relay.
