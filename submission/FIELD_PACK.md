@@ -62,7 +62,7 @@ Must include, explicitly, because the form asks for it:
 - **Total amount requested** in EUR, within €5,000–€50,000 for a first grant.
 - **A breakdown by task** with (roughly) time/effort for each.
 - **The rate you used** — hourly, daily or monthly — and *how it was derived*. NLnet pays cost-recovery, not commercial rates, so a consultancy day rate will be challenged in round two.
-- **Any expenses**, itemised and small (test devices, a VPS, domain, CI).
+- **Any expenses**, itemised — but note the honest answer is usually **€0**: phones, laptops, hosting, compute and CI runners are all ineligible, and the audits are free support services. See the traps below.
 
 Structure that survives review: 5–7 work packages → person-days each → subtotal → expenses → total, with the arithmetic visible. Tie each work package to a milestone so the payment schedule is obvious (payment is per milestone, in arrears).
 
