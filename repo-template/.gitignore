@@ -1,0 +1,57 @@
+# Build output
+/target/
+**/target/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Rust
+Cargo.lock.bak
+**/*.rs.bk
+
+# Android / Gradle
+.gradle/
+**/build/
+local.properties
+*.apk
+*.aab
+*.jks
+*.keystore
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local env & secrets — NEVER commit
+.env
+.env.*
+*.pem
+*.key
+!**/test-fixtures/**/*.key
+secrets/
+/relay-data/
+*.sqlite
+*.sqlite3
+*.db
+
+# Field data must never land in the repo
+fieldnotes/export/
+*.pilot-data
+
+# Tooling
+/coverage/
+*.profraw
+*.profdata
