@@ -866,7 +866,19 @@ definition of ecosystem value.
 10. **NLnet project index scan is keyword-based** and English-only. It is evidence of the landscape,
     not proof of absence `[UNCERTAIN]`.
 
+### ⛔ DO NOT PASTE — reference sample only, not submission text
+
+> **Warning added by the pack editor.** The paragraph below was produced by an AI assistant while
+> preparing this research pack. NLnet's GenAI policy v2.0 forbids using generative AI in the writing
+> of proposals, explicitly including *"restructuring, shortening and translation"*. **Pasting or
+> lightly editing this paragraph would breach the policy and risks rejection of the application.**
+>
+> It is here only to show *which facts and which contrast* a "what is new" answer should contain.
+> Read it, close it, and write the answer in your own words from the evidence in §3 and the
+> evidence ledger in §7. Your own sentence, slightly rougher, is strictly better than this one.
+
 ### Suggested final wording for the "what is new" paragraph
+
 
 > MeshDoc is not the first mesh messenger (Briar, qaul, Meshtastic), the first CRDT library
 > (Automerge, Yjs, Loro, cr-sqlite), or the first humanitarian data tool (KoboToolbox, ODK, DHIS2,
